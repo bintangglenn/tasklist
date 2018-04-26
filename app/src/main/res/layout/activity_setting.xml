@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:id="@+id/text_view_shared_pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SharedPrefExample"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/edit_text_pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="String to save"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/button_save_pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#e57373"/>
+
+    <Button
+        android:id="@+id/button_clear_pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Clear"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#e57373"/>
+</LinearLayout>
