@@ -19,6 +19,7 @@ public class EditorActivity extends AppCompatActivity {
     private EditText editTextTask;
     private Spinner spinnerDay;
     private Button buttonSave;
+    private TaskDBHelper taskDBHelper;
     private int daySelection;
     
     @Override
@@ -29,6 +30,7 @@ public class EditorActivity extends AppCompatActivity {
         editTextTask = (EditText) findViewById(R.id.edit_text_task);
         spinnerDay = (Spinner) findViewById(R.id.spinner_day);
         buttonSave = (Button) findViewById(R.id.button_save_editor);
+        taskDBHelper = new TaskDBHelper(this);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +42,14 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void saveData() {
+        SQLiteDatabase db = taskDBHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskEntry.COLUMN_ABSENT_TASK, editTextTask.getText().toString());
+        contentValues.put(TaskEntry.COLUMN_ABSENT_DAY, daySelection);
+
+        long newRowId = db.insert(TaskEntry.TABLE_NAME, null, contentValues);
+
+        Toast.makeText(this, "New Row Added with id = " + newRowId, Toast.LENGTH_SHORT).show();
     }
 
     private void setupSpinnerDay() {

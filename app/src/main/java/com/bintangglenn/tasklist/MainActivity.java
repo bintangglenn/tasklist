@@ -16,6 +16,7 @@ import com.bintangglenn.tasklist.data.TaskContract.TaskEntry;
 import com.bintangglenn.tasklist.data.TaskDBHelper;
 
 public class MainActivity extends AppCompatActivity {
+    TaskDBHelper taskDBHelper;
     ListView listViewMain;
 
     @Override
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listViewMain = (ListView) findViewById(R.id.list_view_main);
+        taskDBHelper = new TaskDBHelper(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayData() {
+        SQLiteDatabase db = taskDBHelper.getReadableDatabase();
+        String[] columns = null;
+        String selection = null;
+        String[] selectionArgs = null;
+        String groupBy = null;
+        String having = null;
+        String orderBy = null;
+
+        Cursor cursor = db.query(TaskEntry.TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy);
+        TaskCursorAdapter taskCursorAdapter = new TaskCursorAdapter(this, cursor);
+        listViewMain.setAdapter(taskCursorAdapter);
+
     }
 
     @Override
@@ -71,11 +85,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearEntries() {
+        SQLiteDatabase db = taskDBHelper.getWritableDatabase();
+        db.delete(TaskEntry.TABLE_NAME, null, null);
         displayData();
     }
 
     @Override
     protected void onDestroy() {
+        taskDBHelper.close();
         super.onDestroy();
     }
 }
